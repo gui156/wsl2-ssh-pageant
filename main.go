@@ -65,12 +65,12 @@ func queryPageant(buf []byte) (result []byte, err error) {
 	if hwnd == 0 {
 		log.Println("launching gpg-connect-agent")
 		exec.Command("gpg-connect-agent", "/bye").Run()
-	}
 
-	hwnd = win.FindWindow(syscall.StringToUTF16Ptr("Pageant"), syscall.StringToUTF16Ptr("Pageant"))
-	if hwnd == 0 {
-		err = errors.New("Could not find Pageant window")
-		return
+		hwnd = win.FindWindow(syscall.StringToUTF16Ptr("Pageant"), syscall.StringToUTF16Ptr("Pageant"))
+		if hwnd == 0 {
+			err = errors.New("Could not find Pageant window")
+			return
+		}
 	}
 
 	// Adding process id in order to support parrallel requests.
