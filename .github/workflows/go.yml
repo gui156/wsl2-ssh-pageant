@@ -1,6 +1,9 @@
 name: Go
 on:
   push:
+    branches:
+      - main
+      - develop
     tags:
       - "v*"
 jobs:
@@ -32,7 +35,7 @@ jobs:
 
     - name: Release
       uses: softprops/action-gh-release@v2
-      if: ${{ success() }}
+      if: ${{ success() && github.ref_type == 'tag' }}
       with:
         tag_name: ${{ github.ref_name }}
         files: wsl2-ssh-pageant.exe
